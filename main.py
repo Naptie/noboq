@@ -57,15 +57,14 @@ def process_group_message(
     sender_id: int,
     sender_name: string,
     message,
-    raw_message: string,
 ):
-    if raw_message.startswith("/"):
-        text_args = [
-            f
-            for e in message
-            if e["type"] == "text"
-            for f in e["data"]["text"].split(" ")
-        ]
+    text_args = [
+        f
+        for e in message
+        if e["type"] == "text"
+        for f in e["data"]["text"].split(" ")
+    ]
+    if text_args[0].startswith("/"):
         text_args[0] = text_args[0][1:]
         results = process_command_text(
             group_id, message_id, sender_id, sender_name, text_args
@@ -87,12 +86,7 @@ async def root(request: Request):
                     data["sender"]["user_id"],
                     data["sender"]["card"],
                     data["message"],
-                    data["raw_message"],
                 )
-        else:
-            print(data)
-    else:
-        print(data)
     return {}
 
 
@@ -111,4 +105,4 @@ def load():
 
 if __name__ == "__main__":
     load()
-    uvicorn.run(app, port=8080)
+    uvicorn.run(app, port=8080, log_level="warning")

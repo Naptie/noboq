@@ -20,7 +20,7 @@ def group_send(group_id: int, messages: list):
             ],
         },
     )
-    print("Sent message(s)", messages)
+    print("Sent:", messages)
 
 
 def group_respond(
