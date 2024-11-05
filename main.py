@@ -31,10 +31,10 @@ def process_command_text(
                     return phizone.handle_unbind(sender_id)
                 case "pb" | "b19" | "b":
                     return phizone.handle_personal_bests(
-                        group_id, message_id, sender_id, sender_name, args[2:]
+                        sender_id, args[2:]
                     )
                 case "chartsearch" | "search" | "cs" | "sc" | "s":
-                    return phizone.handle_search_chart(args[2:])
+                    return phizone.handle_search_chart(group_id, args[2:])
                 case (
                     "chartquery"
                     | "chartinfo"

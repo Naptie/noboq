@@ -118,12 +118,14 @@ def handle_personal_bests(sender_id: int, args: list[string]):
     ]
 
 
-def handle_search_chart(args: list[string]):
+def handle_search_chart(group_id: int, args: list[string]):
     charts = requests.get(f"{api}/charts?search={' '.join(args)}&perPage=3").json()[
         "data"
     ]
     if len(charts) == 0:
         return [text("找不到谱面。")]
+    if len(charts) == 1:
+        return process_chart(charts[0], group_id)
     results = "\n\n".join([show_chart(chart, brief=True) for chart in charts])
     return [text(f"找到了以下谱面：\n\n{results}")]
 
@@ -140,7 +142,9 @@ def handle_single_chart(response, group_id: int):
     if response.status_code == 404:
         return [text("找不到谱面。")]
     chart = response.json()["data"]
+    return process_chart(chart, group_id)
 
+def process_chart(chart, group_id: int):
     def send_preview():
         preview = get_audio_preview(chart["song"])
         group_send(group_id, [audio(preview if preview else chart["song"]["file"])])

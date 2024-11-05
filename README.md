@@ -1,3 +1,3 @@
 # noboq
 
-Just a QQ bot implementation.
+Just another QQ bot implementation.
