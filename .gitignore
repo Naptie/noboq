@@ -1,3 +1,5 @@
 config.yml
 venv/
 previews/
+.idea/
+__pycache__/
