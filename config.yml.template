@@ -1,0 +1,7 @@
+llob-http-endpoint: 'http://localhost:3000'
+phizone-api: 'https://api.phizone.cn'
+
+mongodb: 'mongodb://localhost:27017'
+
+groups-to-listen:
+  - 114514
