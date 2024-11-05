@@ -193,8 +193,6 @@ def show_chart(chart, brief=False):
     画师：{chart["illustrator"] if chart["illustrator"] else chart["song"]["illustrator"]}
     谱师：{re.sub(user_pattern, user_pattern_name, chart["authorName"])}
     物量：{chart["noteCount"]}
-    评分：{chart["rating"]:.2f}
-    游玩数：{chart["playCount"]}
     ID：{chart["id"]}
     """
         if brief
