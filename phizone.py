@@ -162,11 +162,13 @@ def process_chart(chart, group_id: int):
 def get_audio_preview(song):
     if not song["file"]:
         return None
+    print("Getting audio for", song["title"])
     content = get_cropped_audio(
         song["file"],
         to_seconds(song["previewStart"]),
         to_seconds(song["previewEnd"]),
     )
+    print(content)
     return f"base64://{content}"
 
 
