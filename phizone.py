@@ -216,7 +216,7 @@ def show_chart(chart, brief=False):
 
 
 def convert_time(time):
-    dt_utc = datetime.fromisoformat(time)
+    dt_utc = datetime.fromisoformat(time.split('.')[0])
     local_timezone = pytz.timezone("Asia/Shanghai")
     dt_local = dt_utc.astimezone(local_timezone)
     local_time = dt_local.strftime("%Y-%m-%d %H:%M:%S")
