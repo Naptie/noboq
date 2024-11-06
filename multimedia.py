@@ -12,7 +12,6 @@ def get_cropped_audio(url, start_time, end_time):
     start_ms = start_time * 1000
     end_ms = end_time * 1000
 
-    print("Audio cropped", url, start_time, end_time)
     cropped_audio = audio[start_ms:end_ms]
     audio_bytes = BytesIO()
     cropped_audio.export(audio_bytes, format="ogg")

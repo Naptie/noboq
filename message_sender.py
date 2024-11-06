@@ -11,6 +11,7 @@ def init(endpoint):
 
 
 def group_send(group_id: int, messages: list):
+    print("Sending:", messages)
     requests.post(
         f"{llob_http_endpoint}/send_group_msg",
         json={
