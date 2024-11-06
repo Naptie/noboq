@@ -1,7 +1,6 @@
 import math
 import pytz
 import re
-import os
 import string
 import threading
 from datetime import datetime
@@ -12,13 +11,12 @@ import db_utils as db
 from message_builder import text, audio, image
 from message_sender import group_send
 from miscellaneous import get_greeting
-from multimedia import crop_audio
+from multimedia import get_cropped_audio
 
 api = "https://api.phizone.cn"
 exp_list = [0, 50, 100, 500, 1000, 3000, 6000, 10000, 30000, 60000, 100000]
 user_pattern = r"\[PZUser(Mention)?:(\d+):(.+?):PZRT\]"
 user_pattern_name = r"\3"
-preview_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "previews")
 
 
 def init(api_base):
@@ -144,6 +142,7 @@ def handle_single_chart(response, group_id: int):
     chart = response.json()["data"]
     return process_chart(chart, group_id)
 
+
 def process_chart(chart, group_id: int):
     def send_preview():
         preview = get_audio_preview(chart["song"])
@@ -163,15 +162,12 @@ def process_chart(chart, group_id: int):
 def get_audio_preview(song):
     if not song["file"]:
         return None
-    out = os.path.join(preview_folder, f"{song['id']}.ogg")
-    if not os.path.isfile(out):
-        crop_audio(
-            song["file"],
-            to_seconds(song["previewStart"]),
-            to_seconds(song["previewEnd"]),
-            out,
-        )
-    return f"file://{out}"
+    content = get_cropped_audio(
+        song["file"],
+        to_seconds(song["previewStart"]),
+        to_seconds(song["previewEnd"]),
+    )
+    return f"base64://{content}"
 
 
 def show_record(record):
