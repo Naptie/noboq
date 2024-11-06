@@ -64,7 +64,7 @@ def process_group_message(
         if e["type"] == "text"
         for f in e["data"]["text"].split(" ")
     ]
-    if text_args[0].startswith("/"):
+    if len(text_args) > 0 and text_args[0].startswith("/"):
         text_args[0] = text_args[0][1:]
         results = process_command_text(
             group_id, message_id, sender_id, sender_name, text_args
